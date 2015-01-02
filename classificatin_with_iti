@@ -4,5 +4,29 @@
 
 cd ..
 cd iti
-mkdir umass/data/kdd
+
+declare -a services=('aol'  'auth' 'bgp' 'courier' 'csnet_ns' 'ctf' 'daytime' 'discard' 'domain' 'domain_u' 'echo' 'eco_i' 'ecr_i' 'efs' 'exec' 'finger' 'ftp' 'ftp_data' 'gopher' 'harvest' 'hostnames' 'http' 'http_2784' 'http_443' 'http_8001' 'imap4' 'icmp' 'IRC' 'iso_tsap' 'klogin' 'kshell' 'ldap' 'link' 'login' 'mtp' 'name' 'netbios_dgm' 'netbios_ns' 'netbios_ssn' 'netstat' 'nnsp' 'nntp' 'ntp_u' 'other' 'pm_dump' 'pop_2' 'pop_3' 'printer' 'private' 'red_i' 'remote_job' 'rje' 'shell' 'smtp' 'sql_net' 'ssh' 'sunrpc' 'supdup' 'systat' 'telnet' 'tftp_u' 'time' 'tim_i' 'urh_i' 'urp_i' 'uucp' 'uucp_path' 'vmnet' 'whois' 'X11' 'Z39_50');
+
+#delete 2 files that there is no test  sets for them:
+rm  ../Service-Classifie-of-KDD99/dataset_services/red_i.data ../Service-Classifie-of-KDD99/dataset_services/red_i.names 
+rm  ../Service-Classifie-of-KDD99/dataset_services/urh_i.data ../Service-Classifie-of-KDD99/dataset_services/urh_i.names
+
+for service in "${services[@]}";
+	do
+	{
+		#echo $service
+		if [ -f "../Service-Classifie-of-KDD99/dataset_services/${service}.data" ]; then
+			mkdir umass/data/$service
+			#cd  umass/data/$service
+			cp ../Service-Classifie-of-KDD99/dataset_services/${service}_test.data ../Service-Classifie-of-KDD99/dataset_services/${service}.data ../Service-Classifie-of-KDD99/dataset_services/${service}.names   umass/data/$service
+			cd  cd /umass/data/$service
+			mv ${service}.names names
+			cd ../../..
+		fi
+
+		#create iti tree ans test 
+		    `iti $service -l${service}.data -f -p -w -q${service}_test.data -t`
+	}
+
+	done
 

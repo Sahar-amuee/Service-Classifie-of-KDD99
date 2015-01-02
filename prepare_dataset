@@ -1,0 +1,4 @@
+#!/bin/bash
+
+mkdir test_service training_services
+

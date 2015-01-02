@@ -1,13 +1,13 @@
 #!/bin/bash
 
-mkdir test_service training_services
-cd test_service
+mkdir test_services training_services
+cd test_services
 awk -F, '{print > $3}' ../test.data
 for file in *; 
 	do
 	{
- 		mv $file $file.data;
-		cp ../test.names $file.names 
+	  	newname=${file}_test
+                mv $file $newname.data;
 	}
 	done
 
@@ -17,7 +17,11 @@ awk -F, '{print > $3}' ../training.data
 for file in *;
         do
         {
-                mv $file $file.data;
-                cp ../test.names $file.names
-        }
+	 	mv $file $file.data;
+		cp ../test.names $file.names 
+	}	
         done
+cd ..
+mkdir dataset_services && cd dataset_services && cp  ../test_services/* ../training_services/* . && cd ..
+rm -r test_services/ training_services/ && cd ..
+

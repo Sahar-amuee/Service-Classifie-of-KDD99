@@ -2,3 +2,7 @@
 #This script is for classification usong ITI tree, assuming you download and install iti application from "http://people.cs.umass.edu/~lrn/iti/" and instalit
 #Where is iti is installed? use pwd now,it's now "x"  we assum you installed iti here "../x"
 
+cd ..
+cd iti
+mkdir umass/data/kdd
+
